@@ -1,0 +1,40 @@
+buildscript{
+    respositories{
+        mavenCentral()
+    }
+
+    dependencies{
+        classpath 'com.google.appengine:gradle-appengine-plugin:1.9+'
+    }
+}
+
+apply plugin: 'war'
+apply plugin: 'appengine'
+
+sourceCompatibility = 1.7
+version = '1.0'
+
+repositories{
+    mavenCentral()
+}
+
+dependencies{
+    providedCompile 'javax.servlet:servlet-api:2.5'
+    compile 'com.google.appengine.appengine-api-1.0-sdk:1.9+'
+    testCompile 'junit:junit:4+'
+
+}
+
+appengine{
+    httpPort=8085
+
+    appcfg{
+        email = 'don.heninger@tenoonesoftware.com'
+        passIn = true
+
+        logs{
+            severity =1
+            outputFile = file('applog.txt')
+        }
+    }
+}
