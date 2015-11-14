@@ -4,12 +4,13 @@ buildscript{
     }
 
     dependencies{
-        classpath 'com.google.appengine:gradle-appengine-plugin:1.9+'
+        classpath 'com.google.appengine:gradle-appengine-plugin:1.9.28'
     }
 }
 
 apply plugin: 'war'
 apply plugin: 'appengine'
+apply plugin: 'com.google.gcloud-preview'
 
 sourceCompatibility = 1.7
 version = '1.0'
@@ -20,7 +21,13 @@ repositories{
 
 dependencies{
     providedCompile 'javax.servlet:servlet-api:2.5'
-    compile 'com.google.appengine.appengine-api-1.0-sdk:1.9+'
+    //providedCompile 'com.google.appengine:appengine-java-sdk:1.9.28'
+    compile 'com.google.appengine:appengine-api-1.0-sdk:1.9.28'
+    compile 'com.google.appengine:appengine-endpoints:1.9.28'
+    compile 'javax.inject:javax.inject:1'
+    compile 'com.googlecode.objectify:objectify:5.1.9'
+    testCompile 'com.google.appengine:appengine-testing:1.9.28'
+    testCompile 'com.google.appengine:appengine-api-stubs:1.9.28'
     testCompile 'junit:junit:4+'
 
 }
@@ -35,6 +42,9 @@ appengine{
         logs{
             severity =1
             outputFile = file('applog.txt')
+        }
+        app{
+            id = 'tenoone-cc'
         }
     }
 }
