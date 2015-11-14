@@ -21,7 +21,7 @@ repositories{
 
 dependencies{
     providedCompile 'javax.servlet:servlet-api:2.5'
-    //providedCompile 'com.google.appengine:appengine-java-sdk:1.9.28'
+    providedCompile 'com.google.appengine:appengine-java-sdk:1.9.28'
     compile 'com.google.appengine:appengine-api-1.0-sdk:1.9.28'
     compile 'com.google.appengine:appengine-endpoints:1.9.28'
     compile 'javax.inject:javax.inject:1'
@@ -33,7 +33,7 @@ dependencies{
 }
 
 appengine{
-    httpPort=8085
+    httpPort=8080
 
     appcfg{
         email = 'don.heninger@tenoonesoftware.com'
