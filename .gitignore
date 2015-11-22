@@ -1,0 +1,13 @@
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+tenoone-cc.ipr
+tenoone-cc.iws
+out
+build
+.gradle
+gen
+# Created by .ignore support plugin (hsz.mobi)
