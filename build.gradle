@@ -37,7 +37,8 @@ appengine{
 
     appcfg{
         email = 'don.heninger@tenoonesoftware.com'
-        passIn = true
+        noCookies=false
+        oauth2=true
 
         logs{
             severity =1

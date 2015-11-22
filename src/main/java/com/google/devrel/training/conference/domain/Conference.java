@@ -39,7 +39,7 @@ public class Conference {
     @Index
     private List<String> topics;
     @Index(IfNotDefault.class)
-    private String city;
+    private String city = DEFAULT_CITY;
     private Date startDate;
     private Date endDate;
     @Index

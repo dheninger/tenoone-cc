@@ -29,6 +29,7 @@ import java.util.logging.Logger;
         Constants.WEB_CLIENT_ID, Constants.API_EXPLORER_CLIENT_ID}, description = "API for the Conference Central Backend application.")
 public class ConferenceApi {
     private static final Logger LOG = Logger.getLogger(ConferenceApi.class.getName());
+    public static final String AUTHORIZATION_REQUIRED_MESSAGE = "Authorization Required!";
 
     /*
      * Get the display name from the user's email. For example, if the email is
@@ -78,7 +79,7 @@ public class ConferenceApi {
 
         // If the user is not logged in, throw an UnauthorizedException
         if (user == null) {
-            throw new UnauthorizedException("Authroization required!");
+            throw new UnauthorizedException(AUTHORIZATION_REQUIRED_MESSAGE);
         }
         String displayName = profileForm.getDisplayName();
         TeeShirtSize teeShirtSize = profileForm.getTeeShirtSize();
@@ -124,7 +125,7 @@ public class ConferenceApi {
     @ApiMethod(name = "getProfile", path = "profile", httpMethod = HttpMethod.GET)
     public Profile getProfile(final User user) throws UnauthorizedException {
         if (user == null) {
-            throw new UnauthorizedException("Authorization required");
+            throw new UnauthorizedException(AUTHORIZATION_REQUIRED_MESSAGE);
         }
 
 
@@ -137,7 +138,7 @@ public class ConferenceApi {
     @ApiMethod(name = "createConference", path = "conference", httpMethod = HttpMethod.POST)
     public Conference createConference(final User user, final ConferenceForm conferenceForm) throws UnauthorizedException {
         if (user == null) {
-            throw new UnauthorizedException("Authorization Required!");
+            throw new UnauthorizedException(AUTHORIZATION_REQUIRED_MESSAGE);
         }
         String userId = user.getUserId();
         Key<Profile> profileKey = Key.create(Profile.class, user.getUserId());
@@ -157,5 +158,16 @@ public class ConferenceApi {
         Query<Conference> queryForAllConferences = ofy().load().type(Conference.class).order("name");
 
         return queryForAllConferences.list();
+    }
+    @ApiMethod(name = "getConferencesCreated",
+                path = "getConferencesCreate",
+                httpMethod = HttpMethod.POST)
+    public List<Conference> getConferencesCreated(final User user) throws UnauthorizedException{
+        if(user == null){
+            throw new UnauthorizedException(AUTHORIZATION_REQUIRED_MESSAGE);
+        }
+        Key<Profile> profileKey = Key.create(Profile.class,user.getUserId());
+        Query queryForUsersCreatedConferences = ofy().load().type(Conference.class).ancestor(profileKey).order("name");
+        return queryForUsersCreatedConferences.list();
     }
 }
